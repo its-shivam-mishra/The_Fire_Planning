@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRE Planning Calculator</title>
+    <meta name="description" content="Calculate your Financial Independence, Retire Early (FIRE) goals.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    
+    <main class="container">
+        <header class="app-header">
+            <div class="icon-wrap">
+                <span class="icon">🔥</span>
+            </div>
+            <h1>FIRE Planning <span class="highlight">Calculator</span></h1>
+            <p>Plan your early retirement journey with precision and elegant simplicity.</p>
+        </header>
+
+        <section class="calculator-card glass-panel">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Inputs</h2>
+            </div>
+            <form id="fireForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="currentAge">Current Age</label>
+                    <input type="number" id="currentAge" value="25" min="1" max="100" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="retirementAge">Retirement Age <span class="hint">(Retire at end of this age)</span></label>
+                    <input type="number" id="retirementAge" value="50" min="1" max="100" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="lifeExpectancy">Life Expectancy <span class="hint">(Live till end of this age)</span></label>
+                    <input type="number" id="lifeExpectancy" value="80" min="1" max="120" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="monthlyExpenses">Current Monthly Expenses (₹)</label>
+                    <input type="number" id="monthlyExpenses" value="100000" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="inflationRate">Inflation Rate (%)</label>
+                    <input type="number" id="inflationRate" value="6" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="expectedReturnPre">Expected Return till Retirement (%)</label>
+                    <input type="number" id="expectedReturnPre" value="12" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="expectedReturnPost">Expected Return in Retirement (%)</label>
+                    <input type="number" id="expectedReturnPost" value="9" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="taxRate">Capital Gains Tax Rate (%)</label>
+                    <input type="number" id="taxRate" value="12.5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="existingCorpus">Existing Corpus (₹)</label>
+                    <input type="number" id="existingCorpus" value="0" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="stepUpSip">Annual Step-Up SIP (%)</label>
+                    <input type="number" id="stepUpSip" value="10" min="0" required>
+                </div>
+
+                <div class="dynamic-displays">
+                    <div class="display-box">
+                        <span class="label">POST-TAX RETURN IN RETIREMENT</span>
+                        <span class="value" id="displayPostTaxReturn">7.88%</span>
+                    </div>
+                    <div class="display-box">
+                        <span class="label">CURRENT ANNUAL EXPENSES</span>
+                        <span class="value" id="displayAnnualExpenses">₹ 12,00,000</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-box primary-result">
+                    <div class="icon-bg">💰</div>
+                    <span class="result-label">Required Corpus at Retirement</span>
+                    <span class="result-value" id="resCorpus">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">📈</div>
+                    <span class="result-label">Required Monthly SIP (Year 1)</span>
+                    <span class="result-value" id="resSip">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details">
+                    <summary>Visual Chart: Corpus Over Time</summary>
+                    <div class="chart-container">
+                        <canvas id="corpusChart"></canvas>
+                    </div>
+                </details>
+                
+                <details class="premium-details">
+                    <summary>Detailed Year-by-Year Schedule</summary>
+                    <div class="table-container">
+                        <table class="schedule-table" id="scheduleTable">
+                            <thead>
+                                <tr>
+                                    <th>Age</th>
+                                    <th>Starting Balance</th>
+                                    <th>Annual Investment</th>
+                                    <th>Annual Withdrawal</th>
+                                    <th>Returns Earned</th>
+                                    <th>Ending Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <section class="faq-card glass-panel">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <p class="question"><span class="q-icon">?</span> Why is tax included in retirement return?</p>
+                    <p class="answer">In retirement, investment gains may be taxed. To stay conservative, this calculator uses <strong>post-tax return</strong> for corpus calculation and the schedule.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="question"><span class="q-icon">?</span> Why do we use NPV instead of "Expense × Years"?</p>
+                    <p class="answer">Because your money can continue earning returns during retirement. NPV discounts future expenses using your expected post-tax return, giving a more realistic corpus requirement.</p>
+                </div>
+                <div class="faq-item">
+                    <p class="question"><span class="q-icon">?</span> Why withdraw first and then earn return?</p>
+                    <p class="answer">This matches a conservative and timing-correct approach: expenses are needed first (start of the year), and returns are earned on the remaining corpus.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-panel">
+            <h3>How this model works (timing details):</h3>
+            <ol>
+                <li>If you enter retirement age R, we assume you retire at end of R and your first withdrawal is at start of (R+1).</li>
+                <li>We inflate your annual expense till the first withdrawal using inflation for (R - CurrentAge) years. Expenses continue to inflate during retirement.</li>
+                <li>Required corpus at retirement is calculated as the NPV of yearly withdrawals at the start of (R+1), discounted at post-tax retirement return, with withdraw first then return convention.</li>
+                <li>SIP is computed assuming you invest at the start of every month from the first month of age (CurrentAge+1) up to the last month of age R (i.e. (R - CurrentAge) × 12 deposits).</li>
+            </ol>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice. Mutual fund investments are subject to market risks.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
