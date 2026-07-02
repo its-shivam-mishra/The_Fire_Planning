@@ -80,3 +80,5 @@ The calculator generates a detailed schedule simulating every single year to pro
 - **End Balance**: Balance After Withdrawal + Returns Earned.
 
 By the time the age reaches Life Expectancy, the End Balance perfectly zeroes out (assuming exact fractional withdrawals).
+ 
+  
