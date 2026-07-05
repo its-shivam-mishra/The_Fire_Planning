@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent vs Buy Calculator</title>
+    <meta name="description" content="Compare the true financial opportunity costs of renting versus buying a home.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1" style="background: rgba(244, 63, 94, 0.4);"></div>
+    <div class="bg-shape shape-2" style="background: rgba(225, 29, 72, 0.3);"></div>
+    
+    <main class="container">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn">⬅️ Back to Home</a>
+        </nav>
+        <header class="app-header">
+            <div class="icon-wrap" style="color: #f43f5e;">
+                <span class="icon">⚖️</span>
+            </div>
+            <h1>Rent vs <span class="highlight" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); -webkit-background-clip: text;">Buy</span></h1>
+            <p>A comprehensive opportunity cost analysis to help you make the right housing decision.</p>
+        </header>
+
+        <section class="calculator-card glass-panel" style="border-top: 4px solid #f43f5e;">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Buying Inputs</h2>
+            </div>
+            <form id="rvbForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="propertyPrice">Property Price (₹)</label>
+                    <input type="number" id="propertyPrice" value="10000000" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="downPaymentPercent">Down Payment (%)</label>
+                    <input type="number" id="downPaymentPercent" value="20" min="0" max="100" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="buyingCostsPercent">Upfront Buying Costs (Stamp Duty) (%)</label>
+                    <input type="number" id="buyingCostsPercent" value="6" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="homeLoanRate">Home Loan Interest Rate (%)</label>
+                    <input type="number" id="homeLoanRate" value="8.5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="loanTenure">Loan Tenure (Years)</label>
+                    <input type="number" id="loanTenure" value="20" min="1" max="50" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="propertyAppreciation">Property Appreciation Rate (% p.a.)</label>
+                    <input type="number" id="propertyAppreciation" value="5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group full-width">
+                    <label for="maintenancePercent">Maintenance & Property Tax (% of value p.a.)</label>
+                    <input type="number" id="maintenancePercent" value="1.5" step="0.1" min="0" required>
+                </div>
+
+                <div class="card-header full-width" style="margin-top: 2rem;">
+                    <h2><span class="icon-small">⚙️</span> Renting Inputs & General</h2>
+                </div>
+
+                <div class="input-group">
+                    <label for="monthlyRent">Current Monthly Rent (₹)</label>
+                    <input type="number" id="monthlyRent" value="30000" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="rentInflation">Annual Rent Inflation (%)</label>
+                    <input type="number" id="rentInflation" value="5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="securityDepositMonths">Security Deposit (Months of Rent)</label>
+                    <input type="number" id="securityDepositMonths" value="6" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="investmentReturn">Investment Return Rate (% p.a.) <span class="hint">(For Renter's savings)</span></label>
+                    <input type="number" id="investmentReturn" value="10" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group full-width">
+                    <label for="timeHorizon">Comparison Time Horizon (Years)</label>
+                    <input type="number" id="timeHorizon" value="20" min="1" max="50" required>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); box-shadow: 0 4px 15px rgba(244, 63, 94, 0.3);">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection" style="border-top: 4px solid #f43f5e;">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            
+            <div class="info-panel" style="margin-bottom: 2rem; text-align: center; font-size: 1.25rem; font-weight: 600; padding: 2rem;" id="verdictPanel">
+                <!-- Verdict goes here -->
+            </div>
+
+            <div class="results-grid">
+                <div class="result-box primary-result" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">
+                    <div class="icon-bg">🏠</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Buyer Net Worth at end of Horizon</span>
+                    <span class="result-value" id="resBuyerNetWorth">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none;">
+                    <div class="icon-bg">📈</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Renter Net Worth at end of Horizon</span>
+                    <span class="result-value" id="resRenterNetWorth">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details" open>
+                    <summary>Net Worth Trajectory Over Time</summary>
+                    <div class="chart-container">
+                        <canvas id="rvbChart"></canvas>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice. It compares the net wealth accumulated by investing exactly identical cash flows in both scenarios.</p>
+        </footer>
+    </main>
+
+    <script src="rent-vs-buy.js"></script>
+</body>
+</html>

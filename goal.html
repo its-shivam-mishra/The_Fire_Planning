@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Planning Calculator</title>
+    <meta name="description" content="Calculate how much you need to save to hit a future financial goal.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1" style="background: rgba(20, 184, 166, 0.4);"></div>
+    <div class="bg-shape shape-2" style="background: rgba(13, 148, 136, 0.3);"></div>
+    
+    <main class="container">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn">⬅️ Back to Home</a>
+        </nav>
+        <header class="app-header">
+            <div class="icon-wrap" style="color: #14b8a6;">
+                <span class="icon">🎯</span>
+            </div>
+            <h1>Goal <span class="highlight" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); -webkit-background-clip: text;">Planning</span></h1>
+            <p>Figure out exactly how much you need to save for your future milestones.</p>
+        </header>
+
+        <section class="calculator-card glass-panel" style="border-top: 4px solid #14b8a6;">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Inputs</h2>
+            </div>
+            <form id="goalForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="currentCost">Current Cost of Goal (₹)</label>
+                    <input type="number" id="currentCost" value="1000000" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="timeHorizon">Time Horizon (Years)</label>
+                    <input type="number" id="timeHorizon" value="10" min="1" max="50" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="inflationRate">Expected Inflation Rate (%)</label>
+                    <input type="number" id="inflationRate" value="6" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="expectedReturn">Expected Return on Investment (%)</label>
+                    <input type="number" id="expectedReturn" value="12" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="existingSavings">Existing Savings Dedicated (₹)</label>
+                    <input type="number" id="existingSavings" value="0" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="stepUpSip">Annual Step-Up SIP (%)</label>
+                    <input type="number" id="stepUpSip" value="10" min="0" step="0.1" required>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection" style="border-top: 4px solid #14b8a6;">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-box primary-result" style="background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); box-shadow: 0 10px 25px rgba(20, 184, 166, 0.2);">
+                    <div class="icon-bg">📈</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Required Monthly SIP (Year 1)</span>
+                    <span class="result-value" id="resSip">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">🔮</div>
+                    <span class="result-label">Future Cost of Goal</span>
+                    <span class="result-value" id="resFutureCost" style="color: var(--primary-text);">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">⚠️</div>
+                    <span class="result-label">Shortfall to Accumulate</span>
+                    <span class="result-value" id="resShortfall" style="color: var(--warning-text);">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details" open>
+                    <summary>Savings Accumulation vs Target Goal</summary>
+                    <div class="chart-container">
+                        <canvas id="goalChart"></canvas>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice.</p>
+        </footer>
+    </main>
+
+    <script src="goal.js"></script>
+</body>
+</html>
