@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Calculator</title>
+    <meta name="description" content="Calculate your Systematic Investment Plan returns.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1" style="background: rgba(16, 185, 129, 0.4);"></div>
+    <div class="bg-shape shape-2" style="background: rgba(5, 150, 105, 0.3);"></div>
+    
+    <main class="container">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn">⬅️ Back to Home</a>
+        </nav>
+        <header class="app-header">
+            <div class="icon-wrap" style="color: #10b981;">
+                <span class="icon">📈</span>
+            </div>
+            <h1>SIP <span class="highlight" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); -webkit-background-clip: text;">Calculator</span></h1>
+            <p>Calculate wealth creation through regular investments.</p>
+        </header>
+
+        <section class="calculator-card glass-panel" style="border-top: 4px solid #10b981;">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Inputs</h2>
+            </div>
+            <form id="sipForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="lumpsumAmount">Initial Lumpsum (₹)</label>
+                    <input type="number" id="lumpsumAmount" value="50000" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="regularInvestment">Regular Deposit (₹)</label>
+                    <input type="number" id="regularInvestment" value="10000" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="depositFrequency">Deposit Frequency</label>
+                    <select id="depositFrequency">
+                        <option value="12">Monthly</option>
+                        <option value="4">Quarterly</option>
+                        <option value="1">Yearly</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="stepUpType">Annual Top-up Type</label>
+                    <select id="stepUpType">
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="amount">Fixed Amount (₹)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="stepUpValue">Annual Top-up Value</label>
+                    <input type="number" id="stepUpValue" value="0" min="0" step="0.1" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="expectedReturn">Expected Return Rate (% p.a.)</label>
+                    <input type="number" id="expectedReturn" value="12" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group full-width">
+                    <label for="timePeriod">Time Period (Years)</label>
+                    <input type="number" id="timePeriod" value="10" min="1" max="50" required>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection" style="border-top: 4px solid #10b981;">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-box primary-result" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);">
+                    <div class="icon-bg">💎</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Total Value</span>
+                    <span class="result-value" id="resTotalValue">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">💵</div>
+                    <span class="result-label">Total Invested Amount</span>
+                    <span class="result-value" id="resInvestedAmount" style="color: var(--primary-text);">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result full-width" style="grid-column: 1 / -1; background: #f0fdf4; border: 1px solid #bbf7d0;">
+                    <div class="icon-bg">🚀</div>
+                    <span class="result-label">Estimated Returns</span>
+                    <span class="result-value" id="resEstimatedReturns" style="color: #15803d;">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details" open>
+                    <summary>Wealth Accumulation Over Time</summary>
+                    <div class="chart-container">
+                        <canvas id="sipChart"></canvas>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice.</p>
+        </footer>
+    </main>
+
+    <script src="sip.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <meta name="description" content="Calculate your Equated Monthly Installments.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1" style="background: rgba(59, 130, 246, 0.4);"></div>
+    <div class="bg-shape shape-2" style="background: rgba(14, 165, 233, 0.3);"></div>
+    
+    <main class="container">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn">⬅️ Back to Home</a>
+        </nav>
+        <header class="app-header">
+            <div class="icon-wrap" style="color: #3b82f6;">
+                <span class="icon">🏠</span>
+            </div>
+            <h1>EMI <span class="highlight" style="background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); -webkit-background-clip: text;">Calculator</span></h1>
+            <p>Plan your home, car, or personal loan repayments.</p>
+        </header>
+
+        <section class="calculator-card glass-panel" style="border-top: 4px solid #3b82f6;">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Inputs</h2>
+            </div>
+            <form id="emiForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="loanAmount">Loan Amount (₹)</label>
+                    <input type="number" id="loanAmount" value="5000000" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="interestRate">Interest Rate (% p.a.)</label>
+                    <input type="number" id="interestRate" value="8.5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group full-width">
+                    <label for="loanTenure">Loan Tenure (Years)</label>
+                    <input type="number" id="loanTenure" value="20" min="1" max="50" required>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn" style="background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection" style="border-top: 4px solid #3b82f6;">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-box primary-result" style="background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);">
+                    <div class="icon-bg">📅</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Monthly EMI</span>
+                    <span class="result-value" id="resEmi">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">💵</div>
+                    <span class="result-label">Total Interest Payable</span>
+                    <span class="result-value" id="resTotalInterest" style="color: var(--warning-text);">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result full-width" style="grid-column: 1 / -1;">
+                    <div class="icon-bg">💰</div>
+                    <span class="result-label">Total Payment (Principal + Interest)</span>
+                    <span class="result-value" id="resTotalPayment" style="color: var(--primary-text);">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details" open>
+                    <summary>Breakdown Chart</summary>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="emiChart"></canvas>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice.</p>
+        </footer>
+    </main>
+
+    <script src="emi.js"></script>
+</body>
+</html>

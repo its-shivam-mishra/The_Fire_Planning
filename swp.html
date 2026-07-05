@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWP Calculator</title>
+    <meta name="description" content="Calculate your Systematic Withdrawal Plan.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="bg-shape shape-1" style="background: rgba(245, 158, 11, 0.4);"></div>
+    <div class="bg-shape shape-2" style="background: rgba(217, 119, 6, 0.3);"></div>
+    
+    <main class="container">
+        <nav class="top-nav">
+            <a href="index.html" class="nav-btn">⬅️ Back to Home</a>
+        </nav>
+        <header class="app-header">
+            <div class="icon-wrap" style="color: #f59e0b;">
+                <span class="icon">💸</span>
+            </div>
+            <h1>SWP <span class="highlight" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); -webkit-background-clip: text;">Calculator</span></h1>
+            <p>Plan your regular withdrawals from investments.</p>
+        </header>
+
+        <section class="calculator-card glass-panel" style="border-top: 4px solid #f59e0b;">
+            <div class="card-header">
+                <h2><span class="icon-small">⚙️</span> Inputs</h2>
+            </div>
+            <form id="swpForm" class="inputs-grid">
+                <div class="input-group">
+                    <label for="totalInvestment">Total Investment (₹)</label>
+                    <input type="number" id="totalInvestment" value="10000000" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="withdrawalAmount">Withdrawal per Month (₹)</label>
+                    <input type="number" id="withdrawalAmount" value="50000" min="0" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="stepUpType">Annual Top-up Type</label>
+                    <select id="stepUpType">
+                        <option value="percentage">Percentage (%)</option>
+                        <option value="amount">Fixed Amount (₹)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="stepUpValue">Annual Top-up Value</label>
+                    <input type="number" id="stepUpValue" value="0" min="0" step="0.1" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="taxRate">Tax Rate on Withdrawal (%)</label>
+                    <input type="number" id="taxRate" value="12.5" step="0.1" min="0" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="expectedReturn">Expected Return Rate (% p.a.)</label>
+                    <input type="number" id="expectedReturn" value="8" step="0.1" min="0" required>
+                </div>
+                
+                <div class="input-group full-width">
+                    <label for="timePeriod">Time Period (Years)</label>
+                    <input type="number" id="timePeriod" value="10" min="1" max="50" required>
+                </div>
+
+                <button type="submit" class="btn-calculate" id="calculateBtn" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);">Calculate</button>
+            </form>
+        </section>
+
+        <section class="results-card glass-panel hidden" id="resultsSection" style="border-top: 4px solid #f59e0b;">
+            <div class="card-header results-header">
+                <h2><span class="icon-small">📊</span> Results</h2>
+            </div>
+            <div class="results-grid">
+                <div class="result-box primary-result" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);">
+                    <div class="icon-bg">🎯</div>
+                    <span class="result-label" style="color: rgba(255, 255, 255, 0.9);">Final Balance</span>
+                    <span class="result-value" id="resFinalBalance">₹ 0</span>
+                </div>
+                <div class="result-box secondary-result">
+                    <div class="icon-bg">📤</div>
+                    <span class="result-label">Total Amount Withdrawn</span>
+                    <span class="result-value" id="resTotalWithdrawn" style="color: var(--primary-text);">₹ 0</span>
+                </div>
+            </div>
+
+            <div class="advanced-results">
+                <details class="premium-details" open>
+                    <summary>Balance Trajectory Over Time</summary>
+                    <div class="chart-container">
+                        <canvas id="swpChart"></canvas>
+                    </div>
+                </details>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Disclaimer: This tool is for informational purposes only and does not constitute financial advice.</p>
+        </footer>
+    </main>
+
+    <script src="swp.js"></script>
+</body>
+</html>

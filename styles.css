@@ -193,7 +193,7 @@ label {
     font-weight: 400;
 }
 
-input[type="number"] {
+input[type="number"], select {
     width: 100%;
     padding: 0.875rem 1rem;
     font-family: inherit;
@@ -208,7 +208,7 @@ input[type="number"] {
     outline: none;
 }
 
-input[type="number"]:focus {
+input[type="number"]:focus, select:focus {
     border-color: var(--input-focus);
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
@@ -547,3 +547,116 @@ footer p {
 .schedule-table tbody tr:hover {
     background: #f1f5f9;
 }
+
+/* Dashboard & Navigation Styles */
+.top-nav {
+    margin-bottom: 2rem;
+}
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--card-border);
+    border-radius: 50px;
+    color: var(--primary-text);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.nav-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    color: var(--accent-hover);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.dashboard-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: 2.5rem;
+    border-top: 4px solid var(--accent-color);
+    overflow: hidden;
+    min-height: 220px;
+}
+
+.dashboard-card .card-icon-bg {
+    font-size: 6rem;
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    opacity: 0.05;
+    transform: rotate(-15deg);
+    transition: var(--transition);
+}
+
+.dashboard-card:hover .card-icon-bg {
+    transform: rotate(0deg) scale(1.1);
+    opacity: 0.1;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--primary-text);
+}
+
+.card-content p {
+    color: var(--secondary-text);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    z-index: 1;
+    position: relative;
+}
+
+.card-arrow {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    width: 40px;
+    height: 40px;
+    background: var(--accent-gradient);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: var(--transition);
+}
+
+.dashboard-card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.dashboard-card:nth-child(2) { border-top-color: #3b82f6; }
+.dashboard-card:nth-child(2) .card-arrow { background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); }
+
+.dashboard-card:nth-child(3) { border-top-color: #10b981; }
+.dashboard-card:nth-child(3) .card-arrow { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+
+.dashboard-card:nth-child(4) { border-top-color: #f59e0b; }
+.dashboard-card:nth-child(4) .card-arrow { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+
