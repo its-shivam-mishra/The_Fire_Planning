@@ -476,88 +476,6 @@ footer p {
     animation: slideDownFade 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-/* Responsive - Tablet (max-width: 768px) */
-@media (max-width: 768px) {
-    .container {
-        padding: 1.5rem 1rem;
-    }
-    
-    h1 {
-        font-size: 2.25rem;
-    }
-
-    .glass-panel {
-        padding: 1.5rem;
-    }
-    
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    .results-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .chart-container {
-        height: 300px;
-    }
-    
-    .inputs-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .dynamic-displays {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* Responsive - Mobile (max-width: 480px) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.75rem;
-    }
-
-    .app-header {
-        margin-bottom: 2rem;
-    }
-    
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .dashboard-card {
-        padding: 1.5rem;
-        min-height: 180px;
-    }
-
-    .dashboard-card .card-icon-bg {
-        font-size: 5rem;
-        bottom: -10px;
-        right: -10px;
-    }
-    
-    .card-arrow {
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-    }
-    
-    .result-value {
-        font-size: 2rem;
-    }
-    
-    .result-box {
-        padding: 1.5rem;
-    }
-
-    .btn-calculate {
-        font-size: 1rem;
-        padding: 0.875rem;
-    }
-}
 
 /* Advanced Results */
 .advanced-results {
@@ -783,3 +701,86 @@ footer p {
 .dashboard-card:nth-child(6) { border-top-color: #f43f5e; animation-delay: 0.6s; }
 .dashboard-card:nth-child(6) .card-arrow { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); }
 
+
+/* Responsive - Tablet (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    .glass-panel {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+    
+    .inputs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .dynamic-displays {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Responsive - Mobile (max-width: 640px) */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .app-header {
+        margin-bottom: 2rem;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        padding: 1.5rem;
+        min-height: 180px;
+    }
+
+    .dashboard-card .card-icon-bg {
+        font-size: 5rem;
+        bottom: -10px;
+        right: -10px;
+    }
+    
+    .card-arrow {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 32px;
+        height: 32px;
+        font-size: 1rem;
+    }
+    
+    .result-value {
+        font-size: 2rem;
+    }
+    
+    .result-box {
+        padding: 1.5rem;
+    }
+
+    .btn-calculate {
+        font-size: 1rem;
+        padding: 0.875rem;
+    }
+}
